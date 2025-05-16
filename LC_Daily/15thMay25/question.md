@@ -90,5 +90,4 @@ Explanation:
 
 ## 💡 Hint
 
-Try building the alternating subsequence greedily from left to right by always adding the current word if its group differs from the last added word's group.
-```
+Try building the alternating subsequence greedily from left to right by always adding the current word if its group differs from the last added word's group
