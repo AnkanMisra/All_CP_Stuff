@@ -1,30 +1,29 @@
 import java.util.*;
 public class Solution {
-  public static void main(String[] args) {
-    Scanner sc = new Scanner(System.in);
-    int testcases = sc.nextInt();
-    StringBuilder sb = new StringBuilder();
-    while (testcases!=0) {
-      int n = sc.nextInt();
-      int a1 = sc.nextInt();
-      int x = Math.abs(a1);
-      int countGreater = 0;
-      for (int i = 1; i < n; i++) {
-        int ai = sc.nextInt();
-        if (Math.abs(ai) > x) {
-          countGreater++;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int testcases = sc.nextInt();
+        StringBuilder sb = new StringBuilder();
+        while (testcases!=0) {
+            long n = sc.nextLong();
+            long m = sc.nextLong();
+            long a = sc.nextLong();
+            long b = sc.nextLong();
+            if (n == 1 && m == 1) {
+                sb.append(0).append('\n');
+            } else {
+                long n1 = a < n - a + 1 ? a : n - a + 1;
+                long m1 = b < m - b + 1 ? b : m - b + 1;
+                long F1n = 64 - Long.numberOfLeadingZeros(n - 1);
+                long F1m = 64 - Long.numberOfLeadingZeros(m - 1);
+                long F1n1 = 64 - Long.numberOfLeadingZeros(n1 - 1);
+                long F1m1 = 64 - Long.numberOfLeadingZeros(m1 - 1);
+                long horiz = F1n1 + F1m;
+                long vert = F1n + F1m1;
+                sb.append(Math.min(horiz, vert) + 1).append('\n');
+            }
+        testcases--;
         }
-      }
-      int requiredGreater = (n - 1) / 2;
-      if (countGreater >= requiredGreater) {
-        sb.append("YES");
-      } else {
-        sb.append("NO");
-      }
-      sb.append('\n');
-    testcases--;
+        System.out.print(sb);
     }
-    String ans=sb.toString();
-    System.out.print(ans);
-  }
 }

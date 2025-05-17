@@ -1,76 +1,63 @@
 # Solution Explanation
 
-## Intuition
+### Intuition
 
-You can flip the sign of any element any number of times, including the first element.  
-Since all absolute values are unique, after any sequence of sign flips, the array will contain the same set of absolute values, just with different signs.
+The problem is a two-player game on an `n × m` grid. Each turn, Mouf cuts the grid along a row or column, always keeping the part with Fouad's monster. Fouad can then move the monster anywhere in the remaining grid. Both play optimally: Mouf wants to minimize, Fouad wants to maximize the number of turns until only one cell remains.
 
-The median is determined by the order of the elements.  
-To make `a_1` (or `-a_1`) the median, you want its absolute value to be in the correct position after sorting by value (with any sign).
+The optimal strategy for Fouad is to always move the monster to the cell that is farthest from any edge, maximizing the minimum distance to the grid's borders. The number of turns is determined by how many times the grid can be halved (by rows or columns) until only one cell remains.
 
-## Approach
+### Approach
 
-- Let `x = |a_1|`.
-- For each other element, count how many have absolute value **greater** than `x`.
-- To make `a_1` the median, there must be at least as many elements with greater absolute value as required for the median position.
+- If the grid is already 1×1, the answer is 0.
+- For any other grid:
+  - Compute the minimum distance from the monster's current row to the top or bottom edge: `n1 = min(a, n - a + 1)`
+  - Compute the minimum distance from the monster's current column to the left or right edge: `m1 = min(b, m - b + 1)`
+  - The number of cuts possible along rows is `F1n = floor(log2(n))`
+  - The number of cuts possible along columns is `F1m = floor(log2(m))`
+  - The number of cuts possible along the smaller subgrid is `F1n1 = floor(log2(n1))`, `F1m1 = floor(log2(m1))`
+  - The answer is `min(F1n1 + F1m, F1n + F1m1) + 1`
 
-  - For an array of size `n`, the median is the element at position `(n+1)/2` (1-based, after sorting).
-  - So, there must be at least `(n-1)/2` elements with absolute value greater than `x` (since the median is the `(n-1)/2`-th smallest among the rest).
-
-- If this is possible, print "YES", otherwise "NO".
-
-## Algorithm
-
-1. For each test case:
-    - Read `n` and `a_1`.
-    - Set `x = |a_1|`.
-    - For the rest of the array, count how many elements have `|a_i| > x`.
-    - If `countGreater >= (n-1)/2`, print "YES". Otherwise, print "NO".
-
-## Code
+### Code
 
 ```java
 import java.util.*;
 public class Solution {
-  public static void main(String[] args) {
-    Scanner sc = new Scanner(System.in);
-    int testcases = sc.nextInt();
-    StringBuilder sb = new StringBuilder();
-    while (testcases!=0) {
-      int n = sc.nextInt();
-      int a1 = sc.nextInt();
-      int x = Math.abs(a1);
-      int countGreater = 0;
-      for (int i = 1; i < n; i++) {
-        int ai = sc.nextInt();
-        if (Math.abs(ai) > x) {
-          countGreater++;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int testcases = sc.nextInt();
+        StringBuilder sb = new StringBuilder();
+        while (testcases!=0) {
+            long n = sc.nextLong();
+            long m = sc.nextLong();
+            long a = sc.nextLong();
+            long b = sc.nextLong();
+            if (n == 1 && m == 1) {
+                sb.append(0).append('\n');
+            } else {
+                long n1 = a < n - a + 1 ? a : n - a + 1;
+                long m1 = b < m - b + 1 ? b : m - b + 1;
+                long F1n = 64 - Long.numberOfLeadingZeros(n - 1);
+                long F1m = 64 - Long.numberOfLeadingZeros(m - 1);
+                long F1n1 = 64 - Long.numberOfLeadingZeros(n1 - 1);
+                long F1m1 = 64 - Long.numberOfLeadingZeros(m1 - 1);
+                long horiz = F1n1 + F1m;
+                long vert = F1n + F1m1;
+                sb.append(Math.min(horiz, vert) + 1).append('\n');
+            }
+        testcases--;
         }
-      }
-      int requiredGreater = (n - 1) / 2;
-      if (countGreater >= requiredGreater) {
-        sb.append("YES");
-      } else {
-        sb.append("NO");
-      }
-      sb.append('\n');
-      testcases--;
+        System.out.print(sb);
     }
-    String ans=sb.toString();
-    System.out.print(ans);
-  }
 }
 ```
 
-## Complexity Analysis
+### Complexity
 
-- **Time Complexity:**  
-  \(O(\sum n)\), where the sum is over all test cases and does not exceed \(10^5\).
-- **Space Complexity:**  
-  \(O(1)\) extra space (excluding input and output).
+- **Time Complexity:** O(1) per test case.
+- **Space Complexity:** O(1) extra space.
 
-## Summary
+### Summary
 
-- The solution leverages the uniqueness of absolute values and the ability to flip signs.
-- It checks if the absolute value of the first element can be positioned as the median by counting how many elements have greater absolute value.
-- Efficient and optimal for the given constraints.
+- The solution uses bit manipulation to efficiently compute the number of possible cuts.
+- The answer is the minimum number of turns required to reduce the grid to a single cell, considering both row and column cuts.
+- This approach is efficient and works for very large grids.
