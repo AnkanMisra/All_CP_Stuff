@@ -1,3 +1,5 @@
+import java.util.*;
+
 class Solution {
     public ArrayList<Integer> nextElement(int[] a) {
         int b = a.length;
