@@ -16,8 +16,6 @@ Return the maximum possible sum of the values Alice can achieve by performing th
 
 ### Example 1
 
-https://assets.leetcode.com/uploads/2023/11/09/screenshot-2023-11-10-012513.png
-
 **Input:**  
 nums = [1,2,1], k = 3, edges = [[0,1],[0,2]]
 **Output:**  
@@ -32,8 +30,6 @@ It can be shown that 6 is the maximum achievable sum of values.
 ---
 
 ### Example 2
-
-https://assets.leetcode.com/uploads/2023/11/09/screenshot-2023-11-10-012513.png
 
 **Input:**  
 nums = [2,3], k = 7, edges = [[0,1]]
@@ -50,8 +46,6 @@ It can be shown that 9 is the maximum achievable sum of values.
 ---
 
 ### Example 3
-
-https://assets.leetcode.com/uploads/2023/11/09/screenshot-2023-11-10-012641.png
 
 **Input:**  
 nums = [7,7,7,7,7,7], k = 3, edges = [[0,1],[0,2],[0,3],[0,4],[0,5]]
