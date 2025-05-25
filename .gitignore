@@ -11,7 +11,6 @@ __pycache__/
 .DS_Store
 auto_generated.py
 testcase.py
-setup_and_activate.sh
 input.txt
 output.txt
 testcase.txt
