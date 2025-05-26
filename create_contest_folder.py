@@ -60,7 +60,6 @@ def create_files_in_folder(folder, is_daily, num_questions=0):
                             f.write(f"# Problem q{i}\n")
                         elif fname == "solution.md":
                             f.write(f"# Solution for q{i}\n")
-                        # solution.java will be empty
                     print(f"    Created file: {file_path}")
         return True
     except Exception as e:
