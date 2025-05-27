@@ -84,8 +84,6 @@ You have a game field represented as a **109 × 109** matrix. Each cell is ident
 - The rectangle must cover all monsters after the move.
 - The problem tests your ability to optimize the rectangle dimensions using the move.
 
-## Summary
+![alt text](image.png)
 
-- Find minimal rectangle covering all monsters after moving **at most one monster**.
-- Minimize the area (cost) of that rectangle.
-- Efficient input/output handling is required due to large constraints.
+![alt text](image-1.png)
