@@ -11,6 +11,8 @@ Given the root of a binary search tree and a number `k`, find the greatest numbe
 **Input:**  
 root = [10, 7, 15, 2, 8, 11, 16], k = 14
 
+![alt text](image.png)
+
 **Output:**  
 11
 
@@ -24,6 +26,8 @@ The greatest element in the tree which is less than or equal to 14, is 11.
 **Input:**  
 root = [5, 2, 12, 1, 3, 9, 21, N, N, N, N, N, N, 19, 25], k = 24
 
+![alt text](image-1.png)
+
 **Output:**  
 21
 
@@ -36,6 +40,8 @@ The greatest element in the tree which is less than or equal to 24, is 21.
 
 **Input:**  
 root = [5, 2, 12, 1, 3, 9, 21, N, N, N, N, N, N, 19, 25], k = 4
+
+![alt text](image-2.png)
 
 **Output:**  
 3
