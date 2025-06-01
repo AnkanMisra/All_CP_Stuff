@@ -44,7 +44,6 @@ def create_files_in_folder(folder, is_daily, num_questions=0):
                         f.write(f"# Daily Problem {os.path.basename(folder)}\n")
                     elif fname == "solution.md":
                         f.write(f"# Solution for {os.path.basename(folder)}\n")
-                    # solution.java will be empty
                 print(f"  Created file: {file_path}")
         else:
             os.makedirs(folder, exist_ok=True)
@@ -78,18 +77,21 @@ def main():
     platform = platform_fullname(platform_input, folder_type)
 
     if folder_type == "daily":
+        # Fully automate: get today's date in Asia/Kolkata
         tz = pytz.timezone('Asia/Kolkata')
         now = datetime.now(tz)
         date = now.day
         month = now.strftime('%B')
         folder_name = f"{ordinal(date)}{month}25"
-        print(f"\nThis is the folder that will be created: {platform}/{folder_name}")
+        month_folder = os.path.join(platform, month)
+        full_folder_path = os.path.join(month_folder, folder_name)
+        print(f"\nToday is {folder_name}.")
+        print(f"This is the folder that will be created: {full_folder_path}")
         ok = input("Is this OK? (y/n): ").strip().lower()
         if ok != "y":
             print("Aborted.")
             return
-        base_folder = os.path.join(platform, folder_name)
-        created = create_files_in_folder(base_folder, is_daily=True)
+        created = create_files_in_folder(full_folder_path, is_daily=True)
     elif folder_type == "contest":
         if platform == "LC_Contest":
             wb = input("Weekly or Biweekly? (w/b): ").strip().lower()
