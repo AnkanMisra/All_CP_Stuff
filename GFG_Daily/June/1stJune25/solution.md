@@ -17,7 +17,7 @@ We need to count the number of pairs `(a, b)` such that `a` is from `mat1` and `
 - Adjust the row and column indices as you traverse the matrices.
 
 ### Code
-
+```
 class Solution {
     int countPairs(int[][] mat1, int[][] mat2, int x){
         int n = mat1.length, cnt = 0;
@@ -45,6 +45,7 @@ class Solution {
         return cnt;
     }
 }
+```
 
 ### Complexity
 
