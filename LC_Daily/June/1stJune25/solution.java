@@ -2,7 +2,6 @@ public class Solution {
 
     public long distributeCandies(int n, int limit) {
         long ans = 0;
-
         // If it's not possible to distribute candies, return 0
         if (n > 3 * limit) {
             return 0;
