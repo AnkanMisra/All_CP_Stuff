@@ -82,6 +82,10 @@ In the first three test cases, you can choose r = 1 and c = 1.
 
 In the fourth test case, you can choose r = 1 and c = 2.
 
+![alt text](image.png)
+
 In the fifth test case, you can choose r = 2 and c = 3.
+
+![alt text](image-1.png)
 
 In the sixth test case, you can choose r = 3 and c = 2.
