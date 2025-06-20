@@ -41,13 +41,13 @@ def create_files_in_folder(folder, is_daily, num_questions=0):
     try:
         if is_daily:
             os.makedirs(folder, exist_ok=True)
-            filenames = ["readme.md", "solution.md", "solution.java"]
+            filenames = ["readme.md", "Solution.md", "Solution.java"]
             for fname in filenames:
                 file_path = os.path.join(folder, fname)
                 with open(file_path, "w") as f:
                     if fname == "readme.md":
                         f.write(f"# Daily Problem {os.path.basename(folder)}\n")
-                    elif fname == "solution.md":
+                    elif fname == "Solution.md":
                         f.write(f"# Solution for {os.path.basename(folder)}\n")
                 print(f"  Created file: {file_path}", file=sys.stderr)
         else:
@@ -56,13 +56,13 @@ def create_files_in_folder(folder, is_daily, num_questions=0):
                 q_folder = os.path.join(folder, f"q{i}")
                 os.makedirs(q_folder, exist_ok=True)
                 print(f"  Created: {q_folder}", file=sys.stderr)
-                filenames = ["readme.md", "solution.md", "solution.java"]
+                filenames = ["readme.md", "Solution.md", "Solution.java"]
                 for fname in filenames:
                     file_path = os.path.join(q_folder, fname)
                     with open(file_path, "w") as f:
                         if fname == "readme.md":
                             f.write(f"# Problem q{i}\n")
-                        elif fname == "solution.md":
+                        elif fname == "Solution.md":
                             f.write(f"# Solution for q{i}\n")
                     print(f"    Created file: {file_path}", file=sys.stderr)
         return True
