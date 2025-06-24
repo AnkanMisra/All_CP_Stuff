@@ -35,6 +35,8 @@ def folder_type_fullname(shortcut):
         return "daily"
     if shortcut in ["c", "contest"]:
         return "contest"
+    if shortcut in ["e", "extra"]:
+        return "extra"
     return shortcut
 
 def create_files_in_folder(folder, is_daily, num_questions=0):
@@ -70,30 +72,47 @@ def create_files_in_folder(folder, is_daily, num_questions=0):
         print(f"Error creating files: {e}", file=sys.stderr)
         return False
 
+def create_extra_problem_folder(problem_name):
+    try:
+        base_folder = os.path.join("Extra_Solved_Problems", problem_name)
+        os.makedirs(base_folder, exist_ok=True)
+        filenames = ["readme.md", "Solution.md", "Solution.java"]
+        for fname in filenames:
+            file_path = os.path.join(base_folder, fname)
+            with open(file_path, "w") as f:
+                if fname == "readme.md":
+                    f.write(f"# {problem_name}\n")
+                elif fname == "Solution.md":
+                    f.write(f"# Solution for {problem_name}\n")
+            print(f"  Created file: {file_path}", file=sys.stderr)
+        return base_folder
+    except Exception as e:
+        print(f"Error creating extra problem folder: {e}", file=sys.stderr)
+        return None
+
 def main():
     print_header("Competitive Programming Folder Creator")
     
     folder_type_input = get_user_input(
-        "Type of folder? (daily/contest or d/c): "
+        "Type of folder? (daily/contest/extra or d/c/e): "
     ).lower()
     folder_type = folder_type_fullname(folder_type_input)
-    if folder_type not in ["daily", "contest"]:
+    if folder_type not in ["daily", "contest", "extra"]:
         print(
-            "Invalid folder type. Use 'daily' (or 'd') or 'contest' (or 'c').",
+            "Invalid folder type. Use 'daily' (or 'd'), 'contest' (or 'c'), or 'extra' (or 'e').",
             file=sys.stderr
         )
         return
-
-    platform_input = get_user_input(
-        "Platform (l/c/g or leetcode/codeforces/gfg): "
-    ).lower()
-    platform = platform_fullname(platform_input, folder_type)
 
     created = False
     path_to_change_into = None
     user_confirmed_ok = False
 
     if folder_type == "daily":
+        platform_input = get_user_input(
+            "Platform (l/c/g or leetcode/codeforces/gfg): "
+        ).lower()
+        platform = platform_fullname(platform_input, folder_type)
         tz = pytz.timezone("Asia/Kolkata")
         now = datetime.now(tz)
         date = now.day
@@ -115,6 +134,10 @@ def main():
         if created:
             path_to_change_into = full_folder_path
     elif folder_type == "contest":
+        platform_input = get_user_input(
+            "Platform (l/c/g or leetcode/codeforces/gfg): "
+        ).lower()
+        platform = platform_fullname(platform_input, folder_type)
         num_questions_str = ""
         if platform == "LC_Contest":
             wb = get_user_input("Weekly or Biweekly? (w/b): ").lower()
@@ -156,8 +179,26 @@ def main():
         )
         if created:
             path_to_change_into = base_folder
+    elif folder_type == "extra":
+        problem_name = get_user_input("Enter the problem name: ")
+        if not problem_name:
+            print("Problem name cannot be empty.", file=sys.stderr)
+            return
+        base_folder = os.path.join("Extra_Solved_Problems", problem_name)
+        print(f"\nThis is the folder that will be created: {base_folder}", file=sys.stderr)
+        ok = get_user_input("Is this OK? (y/n): ").lower()
+        user_confirmed_ok = (ok == "y")
+        if not user_confirmed_ok:
+            print("Aborted.", file=sys.stderr)
+            return
+        created_folder = create_extra_problem_folder(problem_name)
+        if created_folder:
+            created = True
+            path_to_change_into = created_folder
+        else:
+            created = False
     else:
-        print("Invalid folder type. Use 'daily' or 'contest'.", file=sys.stderr)
+        print("Invalid folder type. Use 'daily', 'contest', or 'extra'.", file=sys.stderr)
         return
 
     if created and path_to_change_into:
