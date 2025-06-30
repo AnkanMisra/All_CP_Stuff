@@ -18,3 +18,5 @@ testcase.json
 run.sh
 venv/
 directory.txt
+instructions.md
+create_contest_folder.py
