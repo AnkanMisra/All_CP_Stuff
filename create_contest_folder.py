@@ -103,7 +103,7 @@ To provide a clear and concise explanation of the solution approach, without any
 """
 
 SOLUTION_MD_TEMPLATE = """\
-```
+
 # Solution Explanation
 
 ## Intuition
@@ -118,11 +118,11 @@ SOLUTION_MD_TEMPLATE = """\
 
 ## Summary
 [Why the approach works, key takeaways, corner cases]
-```
+
 """
 
 README_MD_TEMPLATE = """\
-```
+
 # Problem: [Title]
 
 ## Problem Description
@@ -147,7 +147,7 @@ README_MD_TEMPLATE = """\
 
 ## Notes
 [any additional notes]
-```
+
 """
 
 def get_user_input(prompt_text):
