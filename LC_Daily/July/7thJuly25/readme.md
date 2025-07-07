@@ -20,6 +20,8 @@ Return the **maximum number of events you can attend**.
 ### Input
 `events = [[1,2],[2,3],[3,4]]`<br/>
 
+![alt text](image.png)
+
 ### Output
 `3`<br/>
 
