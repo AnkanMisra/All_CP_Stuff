@@ -25,7 +25,7 @@ public class Solution {{
 
     public static void main(String[] args) {{
         int testcases = sc.nextInt();
-        while (testcases-- > 0) {{
+        while (testcases-->0) {{
             solve();
         }}
         out.flush();
