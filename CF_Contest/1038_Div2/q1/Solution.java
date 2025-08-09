@@ -26,6 +26,15 @@ public class Solution {
     static void solve() {
         int n = sc.nextInt();
         int m = sc.nextInt();
+        
+        // For a grid to have a non-greedy optimal path, we need:
+        // 1. At least 3x3 grid OR
+        // 2. At least one dimension >= 3 and the other >= 2
+        // 
+        // Cases where it's impossible:
+        // - 1xm or nx1: only one path exists
+        // - 2x2: greedy and optimal paths are the same
+        
         if (n == 1 || m == 1 || (n == 2 && m == 2)) {
             out.println("NO");
         } else {

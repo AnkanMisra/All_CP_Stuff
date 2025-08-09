@@ -1,19 +1,46 @@
-# Solution Explanation
+# A. Greedy Grid - Solution
 
-## Intuition
-The key insight is that for a grid with only one row or one column, or a 2x2 grid, every path is greedy or can be made greedy, so it is **impossible** to construct a grid where no greedy path achieves the maximum value. For all other grid sizes, it is **possible** to construct such a grid.
+## Problem Analysis
 
-## Approach
-- If either `n = 1` or `m = 1`, or both `n = 2` and `m = 2`, output `NO`.
-- Otherwise, output `YES`.
-- The construction for larger grids (e.g., `n ≥ 3` and `m ≥ 3`, or one dimension ≥ 2 and the other > 2) is possible by carefully assigning values so that the maximum sum path is not greedy (as shown in the problem's example).
+We need to determine if there exists an n×m grid where no greedy path achieves the maximum value among all down/right paths.
 
-## Complexity
-- **Time Complexity:** `O(1)` per test case
-- **Space Complexity:** `O(1)`
+### Key Insights
 
-## Summary
-- **Single row, single column, or 2x2 grids:** Impossible to construct the required grid (**output `NO`**).
-- **All other grid sizes:** Possible to construct such a grid (**output `YES`**).
-- The solution relies on the fact that in larger grids, you can always design the grid so that the greedy path does not achieve the maximum sum, but in the small cases, all maximal paths are necessarily greedy.
+1. **Greedy Path**: Starts at top-left, moves only right or down, always choosing the neighbor with greater value (or either if equal).
 
+2. **Goal**: Find when a non-greedy path can have a higher sum than any greedy path.
+
+### Solution Logic
+
+The answer is **"NO"** only in these cases:
+- **1×m or n×1 grids**: Only one possible path exists, so greedy = optimal
+- **2×2 grid**: All paths visit the same cells, so greedy = optimal
+
+For all other cases (**n≥3 or m≥3** with both dimensions ≥2), we can construct a grid where:
+- The optimal path goes through cells with smaller immediate values but leads to a higher total
+- The greedy path gets "trapped" by locally optimal choices
+
+### Example (3×3 grid from problem):
+```
+3 2 5
+5 1 4
+1 2 3
+```
+
+- **Optimal path**: (1,1)→(2,1)→(3,1)→(3,2)→(3,3) = 3+5+1+2+3 = 14
+- **Greedy path**: (1,1)→(1,2)→(2,2)→(3,2)→(3,3) = 3+2+1+2+3 = 11
+
+(Note: The example in the problem statement uses different values, but the principle is the same)
+
+### Implementation
+
+```java
+if (n == 1 || m == 1 || (n == 2 && m == 2)) {
+    out.println("NO");
+} else {
+    out.println("YES");
+}
+```
+
+**Time Complexity**: O(1) per test case  
+**Space Complexity**: O(1)

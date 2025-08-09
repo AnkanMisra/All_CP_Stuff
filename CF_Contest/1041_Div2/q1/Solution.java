@@ -1,6 +1,6 @@
 /*
  * author  : Ankan Misra
- * created : 2025-07-19 at 21:36:30 PM IST
+ * created : 2025-08-07 at 20:04:47 PM IST
  * editor  : nvim
  * blame the bugs on me, not the editor
  */
@@ -8,7 +8,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Sol {
+public class Solution {
     static FastReader sc = new FastReader();
     static PrintWriter out = new PrintWriter(System.out);
     static final int MOD = 1_000_000_007;
@@ -24,30 +24,27 @@ public class Sol {
     }
 
     static void solve() {
-        int n = sc.nextInt();
-        Point[] p = new Point[n];
-        for (int i = 0; i < n; i++) {
-            int x = sc.nextInt();
-            int y = sc.nextInt();
-            p[i] = new Point(x, y, i + 1);
+        int a = sc.nextInt();
+        Set<Integer> b = new HashSet<>();
+        for (int c = 0; c < a; c++) {
+            int d = sc.nextInt();
+            if (d != -1) {
+                b.add(d);
+            }
         }
-        Arrays.sort(p, (a, b) -> a.x == b.x ? Integer.compare(a.y, b.y) : Integer.compare(a.x, b.x));
-        int m = n / 2;
-        Point[] left = Arrays.copyOfRange(p, 0, m);
-        Point[] right = Arrays.copyOfRange(p, m, n);
-        Arrays.sort(left, Comparator.comparingInt(a -> a.y));
-        Arrays.sort(right, (a, b) -> Integer.compare(b.y, a.y));
-        for (int i = 0; i < m; i++) {
-            out.println(left[i].idx + " " + right[i].idx);
+        boolean e;
+        if (b.isEmpty()) {
+            e = true;
+        } else if (b.size() == 1) {
+            int f = b.iterator().next();
+            e = f > 0;
+        } else {
+            e = false;
         }
-    }
-
-    static class Point {
-        int x, y, idx;
-        Point(int x, int y, int idx) {
-            this.x = x;
-            this.y = y;
-            this.idx = idx;
+        if (e) {
+            out.println("YES");
+        } else {
+            out.println("NO");
         }
     }
 
